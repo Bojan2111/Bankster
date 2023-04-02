@@ -1,4 +1,5 @@
-﻿namespace Bankster.Models.DTOs
+﻿
+namespace Bankster.Models.DTOs
 {
     public class BankaDTO
     {

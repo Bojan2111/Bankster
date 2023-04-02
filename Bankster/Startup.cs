@@ -1,4 +1,7 @@
+using Bankster.Interfaces;
 using Bankster.Models;
+using Bankster.Models.Profiles;
+using Bankster.Repository;
 using FinalniTest.Models.Login;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -79,11 +82,13 @@ namespace Bankster
                         builder.WithOrigins("*").AllowAnyHeader().AllowAnyMethod();
                     });
             });
-            /*
-            services.AddAutoMapper(typeof(ZaposleniProfile));
-            services.AddScoped<IZaposleniRepository, ZaposleniRepository>();
-            services.AddScoped<IOrganizacionaJedinicaRepository, OrganizacionaJedinicaRepository>();
-            */
+            services.AddAutoMapper(typeof(RacunProfile));
+            services.AddScoped<IRacunRepository, RacunRepository>();
+            services.AddScoped<IBankaRepository, BankaRepository>();
+            services.AddScoped<IKlijentRepository, KlijentRepository>();
+            services.AddScoped<ITransakcijaRepository, TransakcijaRepository>();
+            services.AddScoped<ITipRacunaRepository, TipRacunaRepository>();
+            services.AddScoped<IPolRepository, PolRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

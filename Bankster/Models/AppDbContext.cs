@@ -13,6 +13,7 @@ namespace Bankster.Models
         public DbSet<Klijent> Klijenti { get; set; }
         public DbSet<Racun> Racuni { get; set; }
         public DbSet<Transakcija> Transakcije { get; set; }
+        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -385,8 +386,8 @@ namespace Bankster.Models
                 new Banka()
                 {
                     Id = 27,
-                    Naziv = "JUGOBANKA JUGBANKA, AD, KOSOVSKA MITROVICA",
-                    Sediste = "",
+                    Naziv = "JUGOBANKA JUGBANKA, AD",
+                    Sediste = "KOSOVSKA MITROVICA",
                     Kod = 365
                 },
                 new Banka()
