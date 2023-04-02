@@ -26,12 +26,25 @@ namespace Bankster.Repository
 
         public IQueryable<Transakcija> GetAll()
         {
-            return _context.Transakcije;
+            return _context.Transakcije
+                .Include(t => t.PrimalacRacun)
+                .Include(t => t.UplatilacRacun)
+                .Include(t => t.UplatilacRacun.Banka)
+                .Include(t => t.UplatilacRacun.Klijent)
+                .Include(t => t.PrimalacRacun.Banka)
+                .Include(t => t.PrimalacRacun.Klijent);
         }
 
         public Transakcija GetOne(int id)
         {
-            return _context.Transakcije.FirstOrDefault(t => t.Id == id);
+            return _context.Transakcije
+                .Include(t => t.PrimalacRacun)
+                .Include(t => t.UplatilacRacun)
+                .Include(t => t.UplatilacRacun.Banka)
+                .Include(t => t.UplatilacRacun.Klijent)
+                .Include(t => t.PrimalacRacun.Banka)
+                .Include(t => t.PrimalacRacun.Klijent)
+                .FirstOrDefault(t => t.Id == id);
         }
 
         public void Update(Transakcija transakcija)

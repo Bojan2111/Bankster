@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using Bankster.Interfaces;
 using Bankster.Models;
+using Bankster.Models.DTOs;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -26,7 +28,7 @@ namespace Bankster.Controllers
         [Route("/api/transakcije")]
         public IActionResult GetTransakcije()
         {
-            return Ok(_transakcijaRepository.GetAll().ToList()); //.ProjectTo<TransakcijaDTO>(_mapper.ConfigurationProvider).ToList());
+            return Ok(_transakcijaRepository.GetAll().ProjectTo<TransakcijaDTO>(_mapper.ConfigurationProvider).ToList());
         }
 
 
@@ -41,7 +43,7 @@ namespace Bankster.Controllers
                 return NotFound();
             }
 
-            return Ok(transakcija);//Ok(_mapper.Map<TransakcijaDTO>(transakcija));
+            return Ok(_mapper.Map<TransakcijaDTO>(transakcija));
         }
 
         [HttpPut]
@@ -81,7 +83,7 @@ namespace Bankster.Controllers
             }
 
             _transakcijaRepository.Add(transakcija);
-            return CreatedAtAction("GetTransakcija", new { id = transakcija.Id });//, _mapper.Map<TransakcijaDTO>(transakcija));
+            return CreatedAtAction("GetTransakcija", new { id = transakcija.Id }, _mapper.Map<TransakcijaDTO>(transakcija));
         }
 
         [HttpDelete]

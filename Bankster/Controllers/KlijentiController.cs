@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using Bankster.Interfaces;
 using Bankster.Models;
+using Bankster.Models.DTOs;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
@@ -25,7 +27,7 @@ namespace Bankster.Controllers
         [Route("/api/klijenti")]
         public IActionResult GetKlijenti()
         {
-            return Ok(_klijentRepository.GetAll().ToList()); //.ProjectTo<KlijentDTO>(_mapper.ConfigurationProvider).ToList());
+            return Ok(_klijentRepository.GetAll().ProjectTo<KlijentDTO>(_mapper.ConfigurationProvider).ToList());
         }
 
 
@@ -40,7 +42,7 @@ namespace Bankster.Controllers
                 return NotFound();
             }
 
-            return Ok(klijent);//Ok(_mapper.Map<KlijentDTO>(klijent));
+            return Ok(_mapper.Map<KlijentDTO>(klijent));
         }
 
         [HttpPut]
@@ -80,7 +82,7 @@ namespace Bankster.Controllers
             }
 
             _klijentRepository.Add(klijent);
-            return CreatedAtAction("GetKlijent", new { id = klijent.Id });//, _mapper.Map<KlijentDTO>(klijent));
+            return CreatedAtAction("GetKlijent", new { id = klijent.Id }, _mapper.Map<KlijentDTO>(klijent));
         }
 
         [HttpDelete]

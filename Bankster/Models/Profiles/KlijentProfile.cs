@@ -7,7 +7,7 @@ namespace Bankster.Models.Profiles
     {
         public KlijentProfile()
         {
-            CreateMap<Klijent, KlijentDTO>();
+            CreateMap<Klijent, KlijentDTO>().ForMember(k => k.Forma, p => p.MapFrom(src => src.Pol.Forma));
         }
     }
 }

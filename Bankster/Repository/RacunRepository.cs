@@ -26,12 +26,12 @@ namespace Bankster.Repository
 
         public IQueryable<Racun> GetAll()
         {
-            return _context.Racuni;
+            return _context.Racuni.Include(r => r.Banka).Include(r => r.Klijent).Include(r => r.Banka).Include(r => r.TipRacuna);
         }
 
         public Racun GetOne(int id)
         {
-            return _context.Racuni.FirstOrDefault(r => r.Id == id);
+            return _context.Racuni.Include(r => r.Banka).Include(r => r.Klijent).Include(r => r.Banka).Include(r => r.TipRacuna).FirstOrDefault(r => r.Id == id);
         }
 
         public void Update(Racun racun)

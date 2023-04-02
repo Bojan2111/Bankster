@@ -7,7 +7,7 @@ namespace Bankster.Models.Profiles
     {
         public RacunProfile()
         {
-            CreateMap<Racun, RacunDTO>();
+            CreateMap<Racun, RacunDTO>().ForMember(r => r.Tip, t => t.MapFrom(src => src.TipRacuna.Tip));
         }
     }
 }

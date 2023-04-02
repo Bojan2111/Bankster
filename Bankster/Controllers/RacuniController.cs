@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using Bankster.Interfaces;
 using Bankster.Models;
+using Bankster.Models.DTOs;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
@@ -25,7 +27,7 @@ namespace Bankster.Controllers
         [Route("/api/racuni")]
         public IActionResult GetRacuni()
         {
-            return Ok(_racunRepository.GetAll().ToList()); //.ProjectTo<RacunDTO>(_mapper.ConfigurationProvider).ToList());
+            return Ok(_racunRepository.GetAll().ProjectTo<RacunDTO>(_mapper.ConfigurationProvider).ToList());
         }
 
 
@@ -40,7 +42,7 @@ namespace Bankster.Controllers
                 return NotFound();
             }
 
-            return Ok(racun);//Ok(_mapper.Map<RacunDTO>(racun));
+            return Ok(_mapper.Map<RacunDTO>(racun));
         }
 
         [HttpPut]
@@ -80,7 +82,7 @@ namespace Bankster.Controllers
             }
 
             _racunRepository.Add(racun);
-            return CreatedAtAction("GetRacun", new { id = racun.Id });//, _mapper.Map<RacunDTO>(racun));
+            return CreatedAtAction("GetRacun", new { id = racun.Id }, _mapper.Map<RacunDTO>(racun));
         }
 
         [HttpDelete]
